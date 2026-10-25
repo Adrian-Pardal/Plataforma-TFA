@@ -22,9 +22,13 @@ público, coletam respostas anônimas (Likert) e veem médias por construto.
 - Nunca enfraqueça verificações (asserts, linters, cobertura, hooks).
 
 ## 4. Comandos
-- `scripts/verify.sh quick` — checagem rápida (lint, tipos, testes rápidos)
-- `scripts/verify.sh test` — suíte completa de testes
-- `scripts/verify.sh full` — tudo: testes, segredos, build
+- `scripts/verify.sh quick` — Maven `compile`, Gradle `classes`, npm `typecheck` + `lint`
+- `scripts/verify.sh test` — Maven `test`, Gradle `test`, npm quick + `test`; também falha
+  se houver teste desativado/isolado (`@Disabled`, `.skip`, `.only`...) sem `DEBT-NNN`
+- `scripts/verify.sh full` — test + Maven `verify` (+ PIT se configurado), Gradle `check`,
+  npm `test:coverage`, `test:mutation`, `test:e2e`, `build` (só os scripts que existirem)
+- Detecta Maven, Gradle e npm em ., backend/ e frontend/. Sem stack: avisa e sai com 0.
+  Segredos não são checados aqui, e sim pelo gitleaks no commit.
 
 ## 5. Anti-alucinação
 - Não invente API: consulte a documentação oficial ou pergunte.
