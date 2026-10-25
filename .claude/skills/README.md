@@ -6,3 +6,4 @@ você digita `/<nome>`.
 | Skill | Tipo | O que faz |
 |-------|------|-----------|
 | [entrevista-spec](entrevista-spec/SKILL.md) | manual | Entrevista uma pergunta por vez e escreve a spec da feature |
+| [planejar](planejar/SKILL.md) | manual | Transforma uma spec Aprovada em plano com tasks pequenas, ligadas a critérios e testes |
