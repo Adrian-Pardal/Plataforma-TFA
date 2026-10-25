@@ -32,6 +32,7 @@ público, coletam respostas anônimas (Likert) e veem médias por construto.
 
 ## 5. Anti-alucinação
 - Não invente API: consulte a documentação oficial ou pergunte.
+- Antes de usar API, configuração ou versão de uma biblioteca, consulte o Context7 (`resolve-library-id` e `query-docs`).
 - Não assuma requisito fora da spec; registre em "Perguntas em aberto".
 - Não diga que testou sem mostrar a saída.
 - Diga "não sei" quando não souber.
