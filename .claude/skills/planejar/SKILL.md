@@ -34,8 +34,8 @@ não é código: é o mapa antes da viagem.
 7. Preencha a Rastreabilidade. Todo RF/CA da spec precisa aparecer; liste
    explicitamente qualquer critério SEM task ou SEM teste.
 8. Liste o que a feature exige e acione as skills correspondentes:
-   modelagem-dados, diagramas, contrato-api, modelo-ameacas e
-   casos-de-teste. Para cada uma: "exige" ou "não se aplica", com o motivo.
+   modelagem-dominio, modelagem-dados, diagrama, contrato-api,
+   modelagem-ameacas e casos-de-teste. Para cada uma: "exige" ou "não se aplica", com o motivo.
    Se a skill ainda não existir, avise e anote como pendência.
 9. Decisão de arquitetura nova vira ADR (docs/templates/adr.md), proposta
    ao dono.

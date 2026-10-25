@@ -38,7 +38,7 @@ público, coletam respostas anônimas (Likert) e veem médias por construto.
 - Diffs pequenos.
 - Decisão de arquitetura vira ADR. ADR aceito não se edita (crie outro que o substitua).
 - Erro relevante vira ERR-NNN em docs/erros/ (use /registrar-erro).
-- Toda ferramenta, credencial ou tarefa manual nova ganha página em docs/help/ no mesmo commit; quando um procedimento mudar, atualize a página.
+- Toda ferramenta, credencial ou tarefa manual nova ganha página em docs/help/ no mesmo commit; quando um procedimento mudar, atualize a página. Exceção: skills são documentadas em docs/skills.md, não em docs/help.
 - Nunca edite .env nem commite segredos.
 - Mostre o conteúdo de todo arquivo novo ou alterado e espere minha aprovação antes de salvar.
 - Crie e edite arquivos só com as ferramentas Write/Edit, nunca com cat, echo, sed, tee ou redirecionamento pelo Bash.
@@ -56,4 +56,5 @@ público, coletam respostas anônimas (Likert) e veem médias por construto.
 - docs/help — manual do operador (rotinas manuais: atualizar, manter, conferir)
 - docs/templates — modelos de spec, plano, ADR, erro, handoff
 - docs/DEBT.md — dívida técnica (testes desativados etc.)
+- docs/skills.md — como as skills são documentadas e onde está o índice (.claude/skills/README.md)
 - scripts/verify.sh — verificação única
