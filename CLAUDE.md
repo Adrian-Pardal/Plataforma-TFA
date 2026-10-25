@@ -41,6 +41,7 @@ público, coletam respostas anônimas (Likert) e veem médias por construto.
 - Decisão de arquitetura vira ADR. ADR aceito não se edita (crie outro que o substitua).
 - Erro relevante vira ERR-NNN em docs/erros/ (use /registrar-erro).
 - Nunca edite .env nem commite segredos.
+- Mostre o conteúdo de todo arquivo novo ou alterado e espere minha aprovação antes de salvar.
 
 ## 7. Ensino
 - Ao fim de cada task, explique em 3–5 linhas o que mudou e por quê.
