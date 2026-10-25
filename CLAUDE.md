@@ -56,5 +56,5 @@ público, coletam respostas anônimas (Likert) e veem médias por construto.
 - docs/help — manual do operador (rotinas manuais: atualizar, manter, conferir)
 - docs/templates — modelos de spec, plano, ADR, erro, handoff
 - docs/DEBT.md — dívida técnica (testes desativados etc.)
-- docs/skills.md — como as skills são documentadas e onde está o índice (.claude/skills/README.md)
+- docs/skills.md — índice das skills (fase, manual ou automática, quando usar)
 - scripts/verify.sh — verificação única

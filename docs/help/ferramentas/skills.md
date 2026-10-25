@@ -21,7 +21,7 @@ Claude Code aberto na raiz do projeto. As skills ficam em
    `/<nome>`, com argumento quando houver (ex.: `/implementar-tdd 3`).
 2. Skill AUTOMÁTICA (sem esse campo): o Claude pode carregá-la sozinho
    quando a descrição combina com o pedido. Também aceita `/<nome>`.
-3. Para ver o índice: abra .claude/skills/README.md.
+3. Para ver o índice: abra docs/skills.md.
 4. Skill nova ou alterada: pode ser preciso reiniciar a sessão para
    aparecer no menu `/`.
 
@@ -33,4 +33,4 @@ Skill não aparece: confira se o arquivo é .claude/skills/<nome>/SKILL.md e
 reinicie a sessão. Alteração indesejada: `git restore`.
 
 ## VER TAMBÉM
-docs/skills.md · .claude/skills/README.md · CLAUDE.md §6
+docs/skills.md · CLAUDE.md §6
