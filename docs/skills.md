@@ -15,5 +15,6 @@ transversal.
 | [entrevista-spec](../.claude/skills/entrevista-spec/SKILL.md) | spec | manual | Ao começar uma feature nova ou retomar uma spec em Rascunho |
 | [planejar](../.claude/skills/planejar/SKILL.md) | plano | manual | Com a spec Aprovada, antes de implementar |
 | [implementar-tdd](../.claude/skills/implementar-tdd/SKILL.md) | implementação | manual | Para cada task do plano aprovado, uma por vez (`/implementar-tdd 3`) |
+| [registrar-adr](../.claude/skills/registrar-adr/SKILL.md) | transversal | automática | Ao decidir stack, banco, biblioteca importante, padrão, autenticação, modelo de dados ou método de trabalho |
 
 Última revisão de skills: 2026-10-25 (base; próxima a partir de 2027-01-25)
