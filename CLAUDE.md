@@ -23,12 +23,9 @@ público, coletam respostas anônimas (Likert) e veem médias por construto.
 
 ## 4. Comandos
 - `scripts/verify.sh quick` — Maven `compile`, Gradle `classes`, npm `typecheck` + `lint`
-- `scripts/verify.sh test` — Maven `test`, Gradle `test`, npm quick + `test`; também falha
-  se houver teste desativado/isolado (`@Disabled`, `.skip`, `.only`...) sem `DEBT-NNN`
-- `scripts/verify.sh full` — test + Maven `verify` (+ PIT se configurado), Gradle `check`,
-  npm `test:coverage`, `test:mutation`, `test:e2e`, `build` (só os scripts que existirem)
-- Detecta Maven, Gradle e npm em ., backend/ e frontend/. Sem stack: avisa e sai com 0.
-  Segredos não são checados aqui, e sim pelo gitleaks no commit.
+- `scripts/verify.sh test` — Maven `test`, Gradle `test`, npm quick + `test`; falha se houver teste desativado/isolado sem `DEBT-NNN`
+- `scripts/verify.sh full` — test + `verify`/PIT (Maven), `check` (Gradle), cobertura, mutação, e2e e build (npm; só o que existir)
+- Detecta Maven, Gradle e npm em ., backend/ e frontend/; sem stack avisa e sai com 0. Segredos: gitleaks no commit.
 
 ## 5. Anti-alucinação
 - Não invente API: consulte a documentação oficial ou pergunte.
@@ -41,6 +38,7 @@ público, coletam respostas anônimas (Likert) e veem médias por construto.
 - Diffs pequenos.
 - Decisão de arquitetura vira ADR. ADR aceito não se edita (crie outro que o substitua).
 - Erro relevante vira ERR-NNN em docs/erros/ (use /registrar-erro).
+- Toda ferramenta, credencial ou tarefa manual nova ganha página em docs/help/ no mesmo commit; quando um procedimento mudar, atualize a página.
 - Nunca edite .env nem commite segredos.
 - Mostre o conteúdo de todo arquivo novo ou alterado e espere minha aprovação antes de salvar.
 - Crie e edite arquivos só com as ferramentas Write/Edit, nunca com cat, echo, sed, tee ou redirecionamento pelo Bash.
@@ -55,6 +53,7 @@ público, coletam respostas anônimas (Likert) e veem médias por construto.
 - docs/adr — decisões de arquitetura
 - docs/erros — registro de erros (ERR-NNN)
 - docs/handoff — passagem de contexto entre sessões
+- docs/help — manual do operador (rotinas manuais: atualizar, manter, conferir)
 - docs/templates — modelos de spec, plano, ADR, erro, handoff
 - docs/DEBT.md — dívida técnica (testes desativados etc.)
 - scripts/verify.sh — verificação única
