@@ -17,5 +17,6 @@ transversal.
 | [implementar-tdd](../.claude/skills/implementar-tdd/SKILL.md) | implementação | manual | Para cada task do plano aprovado, uma por vez (`/implementar-tdd 3`) |
 | [registrar-adr](../.claude/skills/registrar-adr/SKILL.md) | transversal | automática | Ao decidir stack, banco, biblioteca importante, padrão, autenticação, modelo de dados ou método de trabalho |
 | [registrar-erro](../.claude/skills/registrar-erro/SKILL.md) | transversal | automática | Depois de corrigir ou entender um bug, erro da IA, problema de ambiente ou falha de produção (com causa raiz descoberta) |
+| [handoff](../.claude/skills/handoff/SKILL.md) | sessão | manual | Ao encerrar uma sessão de trabalho (`/handoff`) |
 
 Última revisão de skills: 2026-10-25 (base; próxima a partir de 2027-01-25)
