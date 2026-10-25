@@ -7,3 +7,4 @@ você digita `/<nome>`.
 |-------|------|-----------|
 | [entrevista-spec](entrevista-spec/SKILL.md) | manual | Entrevista uma pergunta por vez e escreve a spec da feature |
 | [planejar](planejar/SKILL.md) | manual | Transforma uma spec Aprovada em plano com tasks pequenas, ligadas a critérios e testes |
+| [implementar-tdd](implementar-tdd/SKILL.md) | manual | Implementa uma task do plano em TDD (vermelho, verde, refatorar) com verificação final e push |
