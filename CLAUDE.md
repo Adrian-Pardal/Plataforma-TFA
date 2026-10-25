@@ -42,6 +42,7 @@ público, coletam respostas anônimas (Likert) e veem médias por construto.
 - Erro relevante vira ERR-NNN em docs/erros/ (use /registrar-erro).
 - Nunca edite .env nem commite segredos.
 - Mostre o conteúdo de todo arquivo novo ou alterado e espere minha aprovação antes de salvar.
+- Crie e edite arquivos só com as ferramentas Write/Edit, nunca com cat, echo, sed, tee ou redirecionamento pelo Bash.
 
 ## 7. Ensino
 - Ao fim de cada task, explique em 3–5 linhas o que mudou e por quê.

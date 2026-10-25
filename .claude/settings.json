@@ -1,0 +1,118 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/protect-files.sh",
+            "timeout": 15
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/protect-files.sh",
+            "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/protect-push.sh",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/post-edit-check.sh",
+            "timeout": 120
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/stop-verify.sh",
+            "timeout": 300
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(scripts/verify.sh *)",
+      "Bash(./scripts/verify.sh *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git switch *)",
+      "Bash(git branch *)",
+      "Bash(./mvnw *)",
+      "Bash(./gradlew *)",
+      "Bash(npm run *)",
+      "Bash(npm test *)",
+      "Bash(git push origin feat/*)",
+      "Bash(git push origin fix/*)",
+      "Bash(git push origin docs/*)",
+      "Bash(git push origin test/*)",
+      "Bash(git push origin refactor/*)",
+      "Bash(git push origin chore/*)",
+      "Bash(git push origin hotfix/*)",
+      "Bash(git push -u origin feat/*)",
+      "Bash(git push --set-upstream origin feat/*)",
+      "Bash(git push -u origin fix/*)",
+      "Bash(git push --set-upstream origin fix/*)",
+      "Bash(git push -u origin docs/*)",
+      "Bash(git push --set-upstream origin docs/*)",
+      "Bash(git push -u origin test/*)",
+      "Bash(git push --set-upstream origin test/*)",
+      "Bash(git push -u origin refactor/*)",
+      "Bash(git push --set-upstream origin refactor/*)",
+      "Bash(git push -u origin chore/*)",
+      "Bash(git push --set-upstream origin chore/*)",
+      "Bash(git push -u origin hotfix/*)",
+      "Bash(git push --set-upstream origin hotfix/*)"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(!.env.example)",
+      "Read(secrets/**)",
+      "Bash(git push * main)",
+      "Bash(git push * develop)",
+      "Bash(git push *:main)",
+      "Bash(git push *:develop)",
+      "Bash(git push *:refs/heads/main)",
+      "Bash(git push *:refs/heads/develop)",
+      "Bash(git push * refs/heads/main)",
+      "Bash(git push * refs/heads/develop)",
+      "Bash(git push --force*)",
+      "Bash(git push * --force*)",
+      "Bash(git push -f*)",
+      "Bash(git push * -f*)",
+      "Bash(rm -rf *)",
+      "Bash(rm -fr *)",
+      "Bash(git commit --no-verify*)",
+      "Bash(git commit * --no-verify*)",
+      "Bash(git commit -n*)",
+      "Bash(git commit * -n*)",
+      "Bash(git branch -D*)",
+      "Bash(git branch * -D*)"
+    ]
+  }
+}
