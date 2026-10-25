@@ -12,6 +12,7 @@ Modelo para novas páginas: `docs/templates/help.md`.
 | Fazer a manutenção do mês (WSL, apt, disco, etc.) | manutencao/mensal.md          |
 | Ver se há versão nova do Context7 e atualizar     | ferramentas/context7.md       |
 | Ver a versão ou atualizar Java, Node, lefthook, gitleaks ou gh | ferramentas/instaladas.md |
+| Usar ou ajustar a skill que entrevista e gera a spec | ferramentas/skill-entrevista-spec.md |
 
 ## help × runbooks
 
