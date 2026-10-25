@@ -20,5 +20,6 @@ transversal.
 | [handoff](../.claude/skills/handoff/SKILL.md) | sessão | manual | Ao encerrar uma sessão de trabalho (`/handoff`) |
 | [revisar](../.claude/skills/revisar/SKILL.md) | revisão | manual | Ao fim de uma feature, antes do PR, com testes 100% verdes (`/revisar`) |
 | [retro](../.claude/skills/retro/SKILL.md) | fechamento | manual | Ao fim de uma feature, depois da revisão; a cada 3 meses também revisa as skills (`/retro`) |
+| [explicar](../.claude/skills/explicar/SKILL.md) | transversal | manual | Quando quiser entender um arquivo, trecho, conceito, erro ou stack trace; sem argumento explica o `git diff` (`/explicar <alvo>`) |
 
 Última revisão de skills: 2026-10-25 (base; próxima a partir de 2027-01-25)
