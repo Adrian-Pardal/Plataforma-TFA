@@ -31,5 +31,6 @@ mesmo commit.**
 | Subagente | Quando é usado | Ferramentas |
 |-----------|----------------|-------------|
 | [revisor-codigo](../.claude/agents/revisor-codigo.md) | Disparado pela `/revisar` (em paralelo com o auditor-spec) ou chamado direto para uma segunda leitura crítica do diff; só aponta, nunca edita | Read, Grep, Glob, Bash (só leitura), Context7 (`resolve-library-id`, `query-docs`) |
+| [auditor-spec](../.claude/agents/auditor-spec.md) | Disparado pela `/revisar` (em paralelo com o revisor-codigo) ou chamado direto ao fim de uma feature; confere critério a critério se a spec foi entregue, o que ficou fora dela e se o teste veio antes do código (TDD, pelo rodapé `Task: T<n>` dos commits); só aponta, nunca edita | Read, Grep, Glob, Bash (só `git log`, `git diff`, `git show`) |
 
 Última revisão de skills: 2026-10-25 (base; próxima a partir de 2027-01-25)
