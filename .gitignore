@@ -1,4 +1,57 @@
+# --- Segredos (já existiam; o hook protect-files protege os mesmos nomes) ---
 .env
 .env.*
 !.env.example
 .claude/settings.local.json
+
+# Segredos novos: pasta secrets/ e chaves/certificados
+secrets/
+*.pem
+*.key
+
+# --- Java / Maven ---
+target/
+*.class
+*.log
+*.war
+*.ear
+hs_err_pid*
+dependency-reduced-pom.xml
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+
+# --- Node ---
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+.eslintcache
+*.tsbuildinfo
+dist/
+build/
+coverage/
+.nyc_output/
+.stryker-tmp/
+reports/
+playwright-report/
+test-results/
+
+# --- IntelliJ IDEA ---
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# --- VS Code (ignora tudo, menos as extensões recomendadas e a configuração de debug) ---
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+
+# --- Sistema operacional ---
+.DS_Store
+Thumbs.db
+*.swp
