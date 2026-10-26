@@ -77,7 +77,8 @@ do Node) ou reinstale com `npm install -g lefthook`.
 ### gitleaks (binário em ~/.local/bin)
 > **Modo de manutenção.** O README oficial diz que o gitleaks só recebe
 > correções de segurança, e o mantenedor passou a focar no Betterleaks
-> (github.com/betterleaks/betterleaks). **Reavaliar no passo 2.9.**
+> (github.com/betterleaks/betterleaks). **Reavaliado em 2026-10-25:
+> mantido; trocar pelo Betterleaks quando parar de receber correções.**
 
 1. Veja a versão.
    ```bash

@@ -14,6 +14,7 @@ Modelo para novas páginas: `docs/templates/help.md`.
 | Ver a versão ou atualizar Java, Node, lefthook, gitleaks ou gh | ferramentas/instaladas.md |
 | Entender e usar skills (manual × automática, onde está o índice) | ferramentas/skills.md |
 | Rodar os testes dos hooks e do verify.sh          | ferramentas/testes-dos-hooks.md |
+| Instalar os hooks do git ou entender um commit recusado | ferramentas/lefthook.md |
 
 ## help × runbooks
 
