@@ -50,6 +50,40 @@ verificar_testes_desativados() {
   echo "✔ nenhum teste desativado ou isolado"
 }
 
+# --- 2b. Testes dos scripts e hooks (modos test e full) -----------------------
+# Roda cada scripts/tests/*.test.sh; se algum falhar, o verify.sh falha.
+rodar_testes_dos_scripts() {
+  echo "▶ rodando scripts/tests/*.test.sh"
+  local t falhou=0
+  for t in "$RAIZ"/scripts/tests/*.test.sh; do
+    [[ -f "$t" ]] || continue   # sem arquivos, o glob fica literal: ignora
+    echo "▶ ${t#"$RAIZ"/}"
+    "$t" || falhou=$((falhou + 1))
+  done
+  if [[ $falhou -gt 0 ]]; then
+    echo "✖ $falhou teste(s) de script falharam." >&2
+    exit 1
+  fi
+  echo "✔ testes dos scripts passaram"
+}
+
+# --- 2c. shellcheck nos hooks e scripts (só no modo full, se estiver instalado) ---
+rodar_shellcheck() {
+  if ! command -v shellcheck >/dev/null; then
+    echo "• shellcheck não instalado, pulado"
+    return 0
+  fi
+  local -a arquivos=()
+  local f
+  for f in "$RAIZ"/.claude/hooks/*.sh "$RAIZ"/scripts/*.sh "$RAIZ"/scripts/tests/*.sh; do
+    [[ -f "$f" ]] && arquivos+=("$f")
+  done
+  [[ ${#arquivos[@]} -gt 0 ]] || return 0
+  echo "▶ shellcheck em ${#arquivos[@]} arquivo(s)"
+  shellcheck "${arquivos[@]}"
+  echo "✔ shellcheck sem alertas"
+}
+
 # --- 3. Execução de comandos -------------------------------------------------
 # Roda "$@" dentro de uma pasta. Se falhar, o set -e encerra o script com o MESMO código de erro.
 rodar() {
@@ -113,6 +147,10 @@ rodar_npm() {
 # --- 5. Programa principal -----------------------------------------------------
 if [[ "$MODO" == "test" || "$MODO" == "full" ]]; then
   verificar_testes_desativados
+  rodar_testes_dos_scripts
+fi
+if [[ "$MODO" == "full" ]]; then
+  rodar_shellcheck
 fi
 
 detectou=0

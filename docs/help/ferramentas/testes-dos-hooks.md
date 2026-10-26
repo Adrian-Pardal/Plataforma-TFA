@@ -10,8 +10,14 @@ Os hooks em `.claude/hooks/` e o `scripts/verify.sh` protegem o projeto
 funcionando depois de cada mudança. Cada teste sai com 0 se tudo passou
 e com 1 se algum caso falhou.
 
+O `scripts/verify.sh test` e o `full` já rodam todos os
+`scripts/tests/*.test.sh` e falham se algum falhar. O `full` também roda o
+`shellcheck` nos hooks e scripts, se ele estiver instalado
+(`sudo apt install shellcheck`); sem ele, avisa e segue.
+
 ## QUANDO FAZER
-Sempre que mudar um hook ou o `verify.sh`, antes do commit.
+Sempre que mudar um hook ou o `verify.sh`, antes do commit. Para rodar
+só um teste, use o passo 1; para rodar tudo, `scripts/verify.sh test`.
 
 ## PRÉ-REQUISITOS
 - `jq` instalado (os hooks também precisam dele).
