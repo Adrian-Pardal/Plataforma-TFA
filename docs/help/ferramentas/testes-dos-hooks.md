@@ -34,6 +34,7 @@ só um teste, use o passo 1; para rodar tudo, `scripts/verify.sh test`.
 |------------------------|---------------------------------------------------|
 | protect-push.test.sh   | `git push` liberado ou bloqueado (hook protect-push) |
 | protect-files.test.sh  | Write em ADR Aceito, com caminho relativo e absoluto (hook protect-files) |
+| lefthook.test.sh       | `lefthook.yml`: mensagens do commit-msg e segredo staged no pre-commit (precisa de lefthook e gitleaks; sem eles, pula) |
 | verify.test.sh         | detecção de teste desativado/isolado (`it.only`, `xit`, `fit`...) no verify.sh |
 
 ## COMO CONFERIR QUE DEU CERTO
