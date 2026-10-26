@@ -16,9 +16,9 @@ esac
 
 # --- 2. Testes desativados ou isolados (só nos modos test e full) -----------
 # Regex (ERE do bash): @Disabled, @Ignore, it/test/describe .skip( .only( .skip.each( .only.each(,
-# test.fixme( (Playwright) e xit( xdescribe( xtest(.
+# test.fixme( (Playwright), xit( xdescribe( xtest( e fit( fdescribe( (isolam o teste, como .only).
 # Não pega @DisabledOnOs & cia (desativação condicional, não permanente).
-PADRAO_DESATIVADO='@Disabled([^A-Za-z0-9_]|$)|@Ignore([^A-Za-z0-9_]|$)|(^|[^A-Za-z0-9_$])(it|test|describe)\.(skip|only)(\.each)?\(|(^|[^A-Za-z0-9_$])test\.fixme\(|(^|[^A-Za-z0-9_$])x(it|describe|test)\('
+PADRAO_DESATIVADO='@Disabled([^A-Za-z0-9_]|$)|@Ignore([^A-Za-z0-9_]|$)|(^|[^A-Za-z0-9_$])(it|test|describe)\.(skip|only)(\.each)?\(|(^|[^A-Za-z0-9_$])test\.fixme\(|(^|[^A-Za-z0-9_$])x(it|describe|test)\(|(^|[^A-Za-z0-9_$])f(it|describe)\('
 PADRAO_DEBT='DEBT-[0-9]{3}'   # a exceção da regra do CLAUDE.md: comentário DEBT-NNN
 
 verificar_testes_desativados() {

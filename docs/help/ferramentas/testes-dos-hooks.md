@@ -22,10 +22,12 @@ Sempre que mudar um hook ou o `verify.sh`, antes do commit.
    ```bash
    scripts/tests/protect-push.test.sh
    ```
+   Troque o nome pelo teste que quiser rodar (tabela abaixo).
 
 | Teste                  | O que cobre                                       |
 |------------------------|---------------------------------------------------|
 | protect-push.test.sh   | `git push` liberado ou bloqueado (hook protect-push) |
+| verify.test.sh         | detecção de teste desativado/isolado (`it.only`, `xit`, `fit`...) no verify.sh |
 
 ## COMO CONFERIR QUE DEU CERTO
 A última linha é `✔ todos os casos passaram` e o código de saída é 0
