@@ -27,6 +27,7 @@ Sempre que mudar um hook ou o `verify.sh`, antes do commit.
 | Teste                  | O que cobre                                       |
 |------------------------|---------------------------------------------------|
 | protect-push.test.sh   | `git push` liberado ou bloqueado (hook protect-push) |
+| protect-files.test.sh  | Write em ADR Aceito, com caminho relativo e absoluto (hook protect-files) |
 | verify.test.sh         | detecção de teste desativado/isolado (`it.only`, `xit`, `fit`...) no verify.sh |
 
 ## COMO CONFERIR QUE DEU CERTO

@@ -44,10 +44,11 @@ troca_de_status_permitida() {   # $1 = caminho do ADR
       [[ "$velho" =~ $re_velho && "$novo" =~ $re_novo ]] ;;
     Write)
       # Permitido só se o arquivo novo for IGUAL ao atual, exceto pela linha de Status.
-      local atual novo lin_atual lin_novo
-      atual=$(<"$1")
+      local atual novo lin_atual lin_novo p="$1"
+      [[ "$p" == /* ]] || p="$CWD/$p"   # caminho relativo parte do cwd da sessão (igual a adr_aceito)
+      atual=$(<"$p")
       novo=$(jq -r '.tool_input.content // empty' <<<"$ENTRADA")
-      lin_atual=$(grep -m1 -E '^- \*\*Status:\*\* Aceito[[:space:]]*$' "$1")
+      lin_atual=$(grep -m1 -E '^- \*\*Status:\*\* Aceito[[:space:]]*$' "$p")
       lin_novo=$(grep -m1 -E '^- \*\*Status:\*\* ' <<<"$novo")
       [[ "$lin_novo" =~ $re_novo ]] && [[ "${atual/"$lin_atual"/"$lin_novo"}" == "$novo" ]] ;;
     *) return 1 ;;   # MultiEdit: sem exceção (formato não confirmado na doc)
