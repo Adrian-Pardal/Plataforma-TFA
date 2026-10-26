@@ -59,6 +59,18 @@ falhar pelo motivo certo antes de confiar nele.
 - Se a skill acionada ainda não existir, avise e anote como pendência.
 
 ## Regras de commit
+- Todo commit da task (test, feat/fix, refactor e o docs(plans)) termina com
+  o rodapé `Task: T<n>` (o número da task), numa linha própria separada da
+  mensagem por uma linha em branco. Exemplo:
+
+  ```
+  test(respostas): rejeita resposta fora da escala Likert
+
+  Task: T3
+  ```
+
+  É por esse rodapé que o auditor-spec liga cada commit à sua task e confere
+  se o teste veio antes do código.
 - Em cada commit, adicione só os arquivos da task (`git add <arquivos>`;
   nunca `git add .` ou `-A`).
 - Nunca use --no-verify.
@@ -77,6 +89,8 @@ falhar pelo motivo certo antes de confiar nele.
 
 ## Como verificar
 - Há commits distintos test(...), feat/fix(...) e, se houve, refactor(...).
+- Todos os commits da task (inclusive o docs(plans)) têm o rodapé `Task: T<n>`
+  (confira com `git log -n 4 --format=%B`).
 - A saída do vermelho mostrada falhava pela asserção esperada.
 - A saída final de `scripts/verify.sh test` está 100% verde e foi exibida.
 - `git show --stat` de cada commit só lista arquivos da task.
