@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # protect-push.sh — hook PreToolUse (Bash).
-# Bloqueia "git push" perigoso: remoto que não é origin, destino fora dos prefixos permitidos, force, delete, mirror, all, tags.
+# Bloqueia "git push" perigoso: remoto que não é origin, destino fora dos prefixos permitidos, force, delete, mirror, all, tags,
+# e as opções que trocam o destino ou o programa do push (--repo, --receive-pack, --exec).
 # Saída: 0 = liberado (ou não é push) · 2 = bloqueado (o stderr é mostrado ao Claude e o comando NÃO roda).
 set -uo pipefail   # sem -e de propósito: cada ramo decide seu próprio código de saída
 
@@ -21,17 +22,18 @@ CWD=$(jq -r '.cwd // empty' <<<"$ENTRADA")
 # Um comando pode juntar vários ("cd x && git push ..."): separa em um segmento por linha.
 CMD="${CMD//&&/$'\n'}"; CMD="${CMD//||/$'\n'}"; CMD="${CMD//;/$'\n'}"; CMD="${CMD//|/$'\n'}"
 
-analisar_push() {   # $1 = pasta onde o git roda; demais = argumentos depois de "push"
-  local DIR="$1"; shift
-  local REMOTO="" ; local -a REFS=()
+# Lê as opções de "git push" e separa o remoto das refs.
+# REMOTO e REFS são declaradas em analisar_push (o bash enxerga as variáveis locais de quem chamou).
+validar_opcoes() {   # argumentos depois de "push"
   local A
   while [[ $# -gt 0 ]]; do
     A="$1"; shift
     case "$A" in
       --force|--force-with-lease*|--force-if-includes) bloquear "push forçado ($A) não é permitido." ;;
       --mirror|--all|--tags|--delete|--prune) bloquear "'git push $A' não é permitido (pode apagar ou sobrescrever coisas no remoto)." ;;
-      --repo=*|--receive-pack=*|--exec=*|--push-option=*) ;;
-      --repo|--receive-pack|--exec|--push-option|-o) shift ;;     # opções que carregam um valor
+      --repo|--repo=*|--receive-pack|--receive-pack=*|--exec|--exec=*) bloquear "a opção '$A' não é permitida (troca o destino ou o programa do push)." ;;
+      --push-option=*) ;;
+      --push-option|-o) shift ;;                                  # opções que carregam um valor
       --*) ;;                                                     # outras opções longas (--dry-run, --set-upstream...)
       -?*)                                                        # opções curtas, possivelmente juntas (-fu, -df)
         [[ "$A" == *f* ]] && bloquear "push forçado ($A) não é permitido."
@@ -39,8 +41,12 @@ analisar_push() {   # $1 = pasta onde o git roda; demais = argumentos depois de 
       *) if [[ -z "$REMOTO" ]]; then REMOTO="$A"; else REFS+=("$A"); fi ;;
     esac
   done
+}
 
-  local ATUAL; ATUAL=$(git -C "$DIR" branch --show-current 2>/dev/null)
+# Confere o remoto e cada destino (branch) encontrados por validar_opcoes.
+validar_destinos() {   # $1 = pasta onde o git roda
+  local DIR="$1" ATUAL
+  ATUAL=$(git -C "$DIR" branch --show-current 2>/dev/null)
 
   # Sem remoto explícito, o git usa o configurado para a branch (padrão: origin).
   if [[ -z "$REMOTO" ]]; then
@@ -67,9 +73,15 @@ analisar_push() {   # $1 = pasta onde o git roda; demais = argumentos depois de 
     DEST="${DEST#refs/heads/}"
     [[ "$DEST" == "HEAD" ]] && DEST="$ATUAL"      # "git push origin HEAD" envia para a branch atual
     prefixo_ok "$DEST" || bloquear "destino '$DEST' (de '$R') não é permitido. Só são permitidas branches com prefixo ${PREFIXOS_OK//|/ } (tags e main/develop ficam com o dono)."
-
   done
   return 0
+}
+
+analisar_push() {   # $1 = pasta onde o git roda; demais = argumentos depois de "push"
+  local DIR="$1"; shift
+  local REMOTO="" ; local -a REFS=()
+  validar_opcoes "$@"
+  validar_destinos "$DIR"
 }
 
 while IFS= read -r SEG; do

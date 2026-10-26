@@ -13,6 +13,7 @@ Modelo para novas páginas: `docs/templates/help.md`.
 | Ver se há versão nova do Context7 e atualizar     | ferramentas/context7.md       |
 | Ver a versão ou atualizar Java, Node, lefthook, gitleaks ou gh | ferramentas/instaladas.md |
 | Entender e usar skills (manual × automática, onde está o índice) | ferramentas/skills.md |
+| Rodar os testes dos hooks e do verify.sh          | ferramentas/testes-dos-hooks.md |
 
 ## help × runbooks
 
