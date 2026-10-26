@@ -23,8 +23,8 @@ público, coletam respostas anônimas (Likert) e veem médias por construto.
 
 ## 4. Comandos
 - `scripts/verify.sh quick` — Maven `compile`, Gradle `classes`, npm `typecheck` + `lint`
-- `scripts/verify.sh test` — Maven `test`, Gradle `test`, npm quick + `test`; falha se houver teste desativado/isolado sem `DEBT-NNN`
-- `scripts/verify.sh full` — test + `verify`/PIT (Maven), `check` (Gradle), cobertura, mutação, e2e e build (npm; só o que existir)
+- `scripts/verify.sh test` — Maven `test`, Gradle `test`, npm quick + `test`; falha se houver teste desativado/isolado sem `DEBT-NNN` ou se algum `scripts/tests/*.test.sh` falhar
+- `scripts/verify.sh full` — test + `verify`/PIT (Maven), `check` (Gradle), cobertura, mutação, e2e e build (npm; só o que existir) + `shellcheck` nos hooks e scripts, se instalado
 - Detecta Maven, Gradle e npm em ., backend/ e frontend/; sem stack avisa e sai com 0. Segredos: gitleaks no commit.
 
 ## 5. Anti-alucinação
