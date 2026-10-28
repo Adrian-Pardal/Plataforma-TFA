@@ -84,6 +84,19 @@ rodar_shellcheck() {
   echo "✔ shellcheck sem alertas"
 }
 
+# --- 2d. actionlint nos workflows (só no modo full, se estiver instalado) -----
+# Roda depois do shellcheck: o actionlint também usa o shellcheck para conferir os blocos run:.
+rodar_actionlint() {
+  [[ -d "$RAIZ/.github/workflows" ]] || return 0
+  if ! command -v actionlint >/dev/null; then
+    echo "• actionlint não instalado, pulado (o CI instala)"
+    return 0
+  fi
+  echo "▶ actionlint em .github/workflows"
+  (cd "$RAIZ" && actionlint)
+  echo "✔ actionlint sem alertas"
+}
+
 # --- 3. Execução de comandos -------------------------------------------------
 # Roda "$@" dentro de uma pasta. Se falhar, o set -e encerra o script com o MESMO código de erro.
 rodar() {
@@ -151,6 +164,7 @@ if [[ "$MODO" == "test" || "$MODO" == "full" ]]; then
 fi
 if [[ "$MODO" == "full" ]]; then
   rodar_shellcheck
+  rodar_actionlint
 fi
 
 detectou=0
