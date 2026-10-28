@@ -28,8 +28,7 @@ público, coletam respostas anônimas (Likert) e veem médias por construto.
 - Detecta Maven, Gradle e npm em ., backend/ e frontend/; sem stack avisa e sai com 0. Segredos: gitleaks no commit.
 
 ## 5. Anti-alucinação
-- Não invente API: consulte a documentação oficial ou pergunte.
-- Antes de usar API, configuração ou versão de uma biblioteca, consulte o Context7 (`resolve-library-id` e `query-docs`).
+- Não invente API: consulte a documentação oficial ou pergunte. Antes de usar API, configuração ou versão de uma biblioteca, consulte o Context7 (`resolve-library-id` e `query-docs`).
 - Não assuma requisito fora da spec; registre em "Perguntas em aberto".
 - Não diga que testou sem mostrar a saída.
 - Diga "não sei" quando não souber.
@@ -40,6 +39,7 @@ público, coletam respostas anônimas (Likert) e veem médias por construto.
 - Erro relevante vira ERR-NNN em docs/erros/ (use /registrar-erro).
 - Toda ferramenta, credencial ou tarefa manual nova ganha página em docs/help/ no mesmo commit; quando um procedimento mudar, atualize a página. Exceção: skills são documentadas em docs/skills.md, não em docs/help.
 - Nunca edite .env nem commite segredos.
+- Merge de PR: só na develop, só quando eu pedir explicitamente no chat, com CI verde e /revisar sem 🔴/🟡; sempre `gh pr merge --merge` (nunca --squash, --rebase, --admin ou --auto; hook protect-merge). Merge na main é só meu.
 - Mostre o conteúdo de todo arquivo novo ou alterado e espere minha aprovação antes de salvar.
 - Crie e edite arquivos só com as ferramentas Write/Edit, nunca com cat, echo, sed, tee ou redirecionamento pelo Bash.
 
