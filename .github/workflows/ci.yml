@@ -1,0 +1,106 @@
+# CI da Plataforma TFA: roda em todo PR e em push na main e na develop.
+# Endurecimento: permissões mínimas por job e actions de terceiros fixadas pelo SHA completo
+# (a versão fica no comentário; o Dependabot atualiza o SHA e o comentário juntos).
+# Os jobs não têm "name:" de propósito: o check aparece como "seguranca" e "verificar" na proteção de branch.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, develop]
+
+permissions:
+  contents: read
+
+# Uma execução por branch/PR: um push novo cancela a execução antiga do PR.
+# Em push na main/develop não cancela, para não perder o resultado de um commit.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  seguranca:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: read   # o gitleaks-action lista os commits do PR pela API
+    steps:
+      - name: Baixar o histórico completo
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0          # o gitleaks varre os commits, não só os arquivos
+          persist-credentials: false
+
+      - name: Varrer segredos (gitleaks)
+        uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_ENABLE_COMMENTS: "false"   # sem comentário no PR: dispensa pull-requests: write
+          # GITLEAKS_LICENSE: só é exigida em repositório de organização (conta pessoal não precisa).
+
+      # Repositório público: o dependency review é gratuito. Se o repositório virar privado, ele exige
+      # GitHub Advanced Security (recurso pago): nesse caso, comente este passo.
+      - name: Revisar dependências do PR
+        if: github.event_name == 'pull_request'
+        uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
+
+  verificar:
+    needs: seguranca
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Java (Temurin 25)
+        if: ${{ hashFiles('**/pom.xml') != '' }}
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Node (LTS)
+        if: ${{ hashFiles('**/package.json') != '' }}
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: lts/*
+
+      - name: Instalar shellcheck
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y shellcheck
+
+      - name: Instalar actionlint (script e versão fixados)
+        run: |
+          bash <(curl -sSfL https://raw.githubusercontent.com/rhysd/actionlint/914e7df21a07ef503a81201c76d2b11c789d3fca/scripts/download-actionlint.bash) 1.7.12 "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
+
+      - name: Rodar a verificação completa
+        run: scripts/verify.sh full
+
+  # --- Entram depois -------------------------------------------------------
+  # TODO(codeql): ativar quando houver código Java/JavaScript. Só este job recebe security-events: write.
+  # codeql:
+  #   needs: seguranca
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 30
+  #   permissions:
+  #     contents: read
+  #     security-events: write
+  #     actions: read
+  #   steps:
+  #     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+  #       with:
+  #         persist-credentials: false
+  #     - uses: github/codeql-action/init@<SHA completo> # vX.Y.Z (conferir a versão e as linguagens na doc ao ativar)
+  #       with:
+  #         languages: java-kotlin, javascript-typescript
+  #     - uses: github/codeql-action/analyze@<SHA completo> # vX.Y.Z
+
+  # TODO(deploy): job "deploy" entra aqui (needs: verificar; só em push na main; permissões e secrets próprios).
+  # TODO(espelhamento): job "espelhar" entra aqui (needs: verificar; só em push na main).

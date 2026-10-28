@@ -1,0 +1,28 @@
+# lefthook.yml — hooks do git. Instalar uma vez por clone: lefthook install
+# Ver docs/help/ferramentas/lefthook.md
+pre-commit:
+  commands:
+    verify-quick:
+      run: |
+        scripts/verify.sh quick
+      fail_text: "scripts/verify.sh quick falhou. Corrija e tente o commit de novo."
+    segredos:
+      run: |
+        gitleaks git --staged --redact --no-banner
+      fail_text: "Possível segredo nos arquivos em stage. Remova-o (nunca commite segredos) e tente de novo."
+
+commit-msg:
+  commands:
+    conventional-commits:
+      run: |
+        assunto=$(grep -v '^#' "{1}" | head -n 1)
+        case "$assunto" in
+          "Merge "*|'Revert "'*) exit 0 ;;   # mensagens geradas pelo próprio git
+        esac
+        padrao='^(feat|fix|docs|test|refactor|chore|ci|build|perf)(\([a-z0-9._/-]+\))?!?: .+'
+        if ! printf '%s\n' "$assunto" | grep -Eq "$padrao"; then
+          echo "Mensagem fora do padrão Conventional Commits: $assunto" >&2
+          echo "Use tipo(escopo opcional): descrição. Tipos: feat fix docs test refactor chore ci build perf." >&2
+          exit 1
+        fi
+      fail_text: "Ex.: 'feat(pesquisa): cria cadastro de construto'. Rodapés como 'Task: T3' são aceitos."
