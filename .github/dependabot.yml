@@ -1,0 +1,29 @@
+# Dependabot: abre PRs para atualizar dependências. Os PRs vão para a develop, com commit "chore(deps): ...".
+# Observação: atualizações de SEGURANÇA do Dependabot ignoram target-branch e vão para a branch padrão (main).
+# A branch develop precisa existir no GitHub, senão o Dependabot reclama.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"   # atualiza o SHA e o comentário de versão das actions do ci.yml
+    directory: "/"
+    target-branch: "develop"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore(deps)"
+
+  # Descomente quando existirem o pom.xml / package.json (ajuste a pasta: "/", "/backend" ou "/frontend").
+  # - package-ecosystem: "maven"
+  #   directory: "/backend"
+  #   target-branch: "develop"
+  #   schedule:
+  #     interval: "weekly"
+  #   commit-message:
+  #     prefix: "chore(deps)"
+  #
+  # - package-ecosystem: "npm"
+  #   directory: "/frontend"
+  #   target-branch: "develop"
+  #   schedule:
+  #     interval: "weekly"
+  #   commit-message:
+  #     prefix: "chore(deps)"
