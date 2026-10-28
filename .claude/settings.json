@@ -26,6 +26,11 @@
             "type": "command",
             "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/protect-push.sh",
             "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/protect-merge.sh",
+            "timeout": 15
           }
         ]
       }
@@ -55,6 +60,9 @@
     ]
   },
   "permissions": {
+    "ask": [
+      "Bash(gh pr merge *)"
+    ],
     "allow": [
       "Bash(scripts/verify.sh *)",
       "Bash(./scripts/verify.sh *)",
