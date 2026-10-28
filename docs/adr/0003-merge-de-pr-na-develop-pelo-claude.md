@@ -1,6 +1,6 @@
 # ADR 0003: Permitir que o Claude faça merge de PR na develop, só sob pedido explícito
 
-- **Status:** Proposto
+- **Status:** Aceito
 - **Data:** 2026-10-28
 - **Substitui:** nenhum
 

@@ -1,6 +1,6 @@
 # ADR 0002: Adotar TDD como método padrão de implementação e exigir 100% dos testes passando no CI
 
-- **Status:** Proposto
+- **Status:** Aceito
 - **Data:** 2026-10-28
 - **Substitui:** nenhum
 
