@@ -18,6 +18,13 @@ Regras ativas nas duas branches:
 - `enforce_admins`: as regras valem também para administrador. Sem isso, o
   dono do repositório (que é admin) conseguiria burlar a proteção.
 
+Por que zero aprovações: o GitHub não deixa o autor aprovar o próprio PR.
+Se a regra exigisse 1 aprovação com `enforce_admins` ligado, o dono ficaria
+travado para sempre. "Aprovar" no GitHub é um selo de revisão dado por outra
+pessoa; aqui ninguém o dá. O que valida o PR são o CI verde, a `/revisar` e a
+sua leitura do diff. O clique em "merge" (ou `gh pr merge --merge`) é a
+decisão final, e o hook `protect-merge` só a libera quando você pede no chat.
+
 Fora das branches: `develop` é a branch padrão; alertas do Dependabot,
 atualizações automáticas de segurança, secret scanning e proteção de push
 de segredos estão ligados.
