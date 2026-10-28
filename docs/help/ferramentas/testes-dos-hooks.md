@@ -13,7 +13,8 @@ e com 1 se algum caso falhou.
 O `scripts/verify.sh test` e o `full` já rodam todos os
 `scripts/tests/*.test.sh` e falham se algum falhar. O `full` também roda o
 `shellcheck` nos hooks e scripts, se ele estiver instalado
-(`sudo apt install shellcheck`); sem ele, avisa e segue.
+(`sudo apt install shellcheck`), e o `actionlint` nos workflows (veja
+`instaladas.md`); sem eles, avisa e segue.
 
 ## QUANDO FAZER
 Sempre que mudar um hook ou o `verify.sh`, antes do commit. Para rodar
@@ -36,7 +37,7 @@ só um teste, use o passo 1; para rodar tudo, `scripts/verify.sh test`.
 | protect-merge.test.sh  | `gh pr merge` e `gh api` de merge: só destino develop e só `--merge`; sem `--squash`/`--rebase`/`--admin`/`--auto` (usa um gh falso, não chama o GitHub) |
 | protect-files.test.sh  | Write em ADR Aceito, com caminho relativo e absoluto (hook protect-files) |
 | lefthook.test.sh       | `lefthook.yml`: mensagens do commit-msg e segredo staged no pre-commit (precisa de lefthook e gitleaks; sem eles, pula) |
-| verify.test.sh         | detecção de teste desativado/isolado (`it.only`, `xit`, `fit`...) no verify.sh |
+| verify.test.sh         | detecção de teste desativado/isolado (`it.only`, `xit`, `fit`...), shellcheck e actionlint (só no modo full) no verify.sh |
 
 ## COMO CONFERIR QUE DEU CERTO
 A última linha é `✔ todos os casos passaram` e o código de saída é 0

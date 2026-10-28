@@ -1,7 +1,7 @@
 # NOME
-instaladas — ver a versão e atualizar Java, Node, lefthook, gitleaks e gh
+instaladas — ver a versão e atualizar Java, Node, lefthook, gitleaks, gh e actionlint
 
-Última verificação: 2026-10-25 · Testado com: Java 25.0.4.1+1-tem, SDKMAN 5.24.0, nvm 0.40.8, Node 24.22.1, lefthook 2.2.2, gitleaks 8.30.1, gh 2.103.2
+Última verificação: 2026-10-28 · Testado com: Java 25.0.4.1+1-tem, SDKMAN 5.24.0, nvm 0.40.8, Node 24.22.1, lefthook 2.2.2, gitleaks 8.30.1, gh 2.103.2, actionlint 1.7.12
 
 ## PARA QUE SERVE
 Cada ferramenta vem de um lugar diferente e se atualiza de um jeito
@@ -112,6 +112,23 @@ tem versão antiga. Não existe `gh upgrade`.
    sudo apt install gh
    ```
 
+### actionlint (binário em ~/.local/bin; opcional)
+Valida os workflows de `.github/workflows` dentro do `scripts/verify.sh full`.
+Sem ele o `full` apenas avisa e segue; o CI sempre o instala. O CI usa a versão
+fixada em `.github/workflows/ci.yml`: ao atualizar aqui, atualize lá também.
+1. Veja a versão e se há release nova.
+   ```bash
+   actionlint -version
+   gh release view -R rhysd/actionlint --json tagName,publishedAt
+   ```
+2. Instale ou atualize para a versão escolhida (script do commit fixado, como no
+   CI). Troque `<versão>` pelo número, sem o `v`.
+   ```bash
+   cp ~/.local/bin/actionlint ~/.local/bin/actionlint.anterior
+   bash <(curl -sSfL https://raw.githubusercontent.com/rhysd/actionlint/914e7df21a07ef503a81201c76d2b11c789d3fca/scripts/download-actionlint.bash) <versão> ~/.local/bin
+   ```
+   (Na primeira instalação o `cp` não encontra o arquivo: ignore o erro.)
+
 ## COMO CONFERIR QUE DEU CERTO
 - Java: `java -version` mostra a versão escolhida.
 - Node: `node -v`, e `npm ls -g --depth=0` ainda lista `lefthook`.
@@ -120,6 +137,8 @@ tem versão antiga. Não existe `gh upgrade`.
 - gitleaks: `gitleaks version` imprime a versão nova.
 - gh: `gh --version` mostra a versão nova e `apt-cache policy gh` lista
   `cli.github.com` como origem.
+- actionlint: `actionlint -version` imprime a versão e `scripts/verify.sh full`
+  mostra `✔ actionlint sem alertas`.
 
 ## SE DER ERRADO
 - Java: volte para a anterior com `sdk default java <identificador-anterior>`
@@ -130,8 +149,10 @@ tem versão antiga. Não existe `gh upgrade`.
 - gitleaks: `mv ~/.local/bin/gitleaks.anterior ~/.local/bin/gitleaks`.
 - gh: `apt-cache policy gh` lista as versões disponíveis; instale uma
   específica com `sudo apt install gh=<versão>`.
+- actionlint: `mv ~/.local/bin/actionlint.anterior ~/.local/bin/actionlint`.
 
 ## VER TAMBÉM
 - manutencao/mensal.md
 - ferramentas/context7.md
+- ferramentas/ci.md (o CI instala o actionlint e o shellcheck por conta própria)
 - CLAUDE.md, seção 4 (o gitleaks roda no commit; o `verify.sh` não checa segredos)
