@@ -15,6 +15,7 @@ Modelo para novas páginas: `docs/templates/help.md`.
 | Entender e usar skills (manual × automática, onde está o índice) | ferramentas/skills.md |
 | Rodar os testes dos hooks e do verify.sh          | ferramentas/testes-dos-hooks.md |
 | Instalar os hooks do git ou entender um commit recusado | ferramentas/lefthook.md |
+| Pedir o merge de um PR na develop ou entender um bloqueio do protect-merge | ferramentas/merge-de-pr.md |
 
 ## help × runbooks
 

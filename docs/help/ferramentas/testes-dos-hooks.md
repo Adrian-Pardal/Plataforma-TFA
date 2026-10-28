@@ -5,7 +5,7 @@ testes-dos-hooks — rodar os testes dos hooks e do verify.sh
 
 ## PARA QUE SERVE
 Os hooks em `.claude/hooks/` e o `scripts/verify.sh` protegem o projeto
-(push perigoso, ADR aceito, teste desativado). Os testes em
+(push e merge perigosos, ADR aceito, teste desativado). Os testes em
 `scripts/tests/*.test.sh` garantem que essas proteções continuam
 funcionando depois de cada mudança. Cada teste sai com 0 se tudo passou
 e com 1 se algum caso falhou.
@@ -33,6 +33,7 @@ só um teste, use o passo 1; para rodar tudo, `scripts/verify.sh test`.
 | Teste                  | O que cobre                                       |
 |------------------------|---------------------------------------------------|
 | protect-push.test.sh   | `git push` liberado ou bloqueado (hook protect-push) |
+| protect-merge.test.sh  | `gh pr merge` e `gh api` de merge: só destino develop e só `--merge`; sem `--squash`/`--rebase`/`--admin`/`--auto` (usa um gh falso, não chama o GitHub) |
 | protect-files.test.sh  | Write em ADR Aceito, com caminho relativo e absoluto (hook protect-files) |
 | lefthook.test.sh       | `lefthook.yml`: mensagens do commit-msg e segredo staged no pre-commit (precisa de lefthook e gitleaks; sem eles, pula) |
 | verify.test.sh         | detecção de teste desativado/isolado (`it.only`, `xit`, `fit`...) no verify.sh |
@@ -48,3 +49,4 @@ errado. Para voltar atrás: `git restore .claude/hooks/<hook>.sh`.
 
 ## VER TAMBÉM
 - `docs/help/ferramentas/skills.md`
+- `docs/help/ferramentas/merge-de-pr.md`
