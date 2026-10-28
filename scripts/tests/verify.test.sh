@@ -71,5 +71,29 @@ else
   echo "  • shellcheck não instalado: casos do modo full pulados"
 fi
 
+# actionlint: usa um "actionlint" falso no PATH e um projeto com (ou sem) .github/workflows.
+caso_actionlint() {   # caso_actionlint <esperado> <modo> <descrição> <saída do actionlint falso> <com workflows: sim|nao>
+  local esperado="$1" modo="$2" descricao="$3" saida="$4" com_wf="$5" obtido FALSO3
+  FALSO3="$(mktemp -d)"
+  rm -rf "$TMP2/scripts" "$TMP2/.github"; mkdir -p "$TMP2/scripts/tests"
+  [[ "$com_wf" == sim ]] && mkdir -p "$TMP2/.github/workflows"
+  printf '%s\n' '#!/usr/bin/env bash' "exit $saida" > "$FALSO3/actionlint"; chmod +x "$FALSO3/actionlint"
+  PATH="$FALSO3:$PATH" VERIFY_RAIZ="$TMP2" "$VERIFY" "$modo" >/dev/null 2>&1
+  obtido=$?
+  rm -rf "$FALSO3"
+  if [[ "$obtido" == "$esperado" ]]; then
+    echo "  ok    ($esperado) $descricao"
+  else
+    echo "  FALHA (esperado $esperado, veio $obtido) $descricao" >&2
+    falhas=$((falhas + 1))
+  fi
+}
+
+echo "▶ verify.sh: actionlint só no modo full, só se houver .github/workflows"
+caso_actionlint 0 test "test: não roda actionlint"              1 sim
+caso_actionlint 0 full "full: actionlint limpo passa"           0 sim
+caso_actionlint 1 full "full: actionlint reprova"               1 sim
+caso_actionlint 0 full "full: sem .github/workflows, não roda"  1 nao
+
 if [[ $falhas -gt 0 ]]; then echo "✖ $falhas caso(s) falharam" >&2; exit 1; fi
 echo "✔ todos os casos passaram"
