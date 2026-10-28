@@ -17,6 +17,7 @@ Modelo para novas páginas: `docs/templates/help.md`.
 | Instalar os hooks do git ou entender um commit recusado | ferramentas/lefthook.md |
 | Entender o CI, ler uma falha dele ou atualizar as actions | ferramentas/ci.md |
 | Pedir o merge de um PR na develop ou entender um bloqueio do protect-merge | ferramentas/merge-de-pr.md |
+| Conferir, refazer ou afrouxar as regras de proteção da develop e da main | ferramentas/protecao-de-branches.md |
 
 ## help × runbooks
 

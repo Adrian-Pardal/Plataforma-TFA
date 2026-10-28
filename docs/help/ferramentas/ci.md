@@ -53,9 +53,9 @@ actions (commit `chore(deps): ...`). Maven e npm estão comentados.
    gh run list --limit 5
    gh run view <id> --log-failed
    ```
-3. Na proteção de branch (GitHub → Settings → Branches), exija os checks
-   `seguranca` e `verificar` na `main` e na `develop`, e exija PR. Os nomes
-   aparecem só depois da primeira execução do workflow.
+3. Proteja a `main` e a `develop` exigindo os checks `seguranca` e `verificar`
+   e PR. O passo a passo, pela API, está em `protecao-de-branches.md`. Os
+   nomes dos checks aparecem só depois da primeira execução do workflow.
 4. Para atualizar uma action na mão: pegue o SHA da versão nova e troque o SHA
    e o comentário juntos.
    ```bash
@@ -86,6 +86,7 @@ actions (commit `chore(deps): ...`). Maven e npm estão comentados.
 - **Voltar atrás numa mudança do workflow:** `git revert <commit>` em um PR.
 
 ## VER TAMBÉM
+- `docs/help/ferramentas/protecao-de-branches.md`
 - `docs/help/ferramentas/merge-de-pr.md`
 - `docs/help/ferramentas/instaladas.md`
 - `docs/help/ferramentas/testes-dos-hooks.md`
