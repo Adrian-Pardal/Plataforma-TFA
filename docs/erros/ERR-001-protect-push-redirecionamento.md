@@ -1,7 +1,7 @@
 ---
 id: ERR-001
 titulo: protect-push bloqueia git push com redirecionamento de saída
-status: aberto
+status: corrigido
 categoria: bug
 severidade: baixa
 detectado-em: local
@@ -30,10 +30,10 @@ recorrencias: 1
 5. Por quê ninguém viu? A suíte `protect-push.test.sh` cobre opções e destinos, mas nenhum caso tem sintaxe de shell em volta do comando (causa raiz: falta de teste com redirecionamento).
 
 ## Correção
-Pendente. O hook deve ignorar redirecionamentos (`>`, `>>`, `2>&1`, `&>`, `<`) e o alvo deles antes de montar `REFS`.
+Em `.claude/hooks/protect-push.sh`, a função `tirar_redirecionamentos` descarta, antes de montar `REFS`, os tokens de redirecionamento (`>`, `>>`, `<`, `2>`, `2>&1`, `&>`) e o alvo deles quando vem separado. Ela roda antes de tirar as aspas, para que `">"` entre aspas continue sendo argumento do git e seja bloqueado. Commit da correção: o último desta branch (`fix/protect-push-redirecionamento`).
 
 ## Teste de regressão
-`scripts/tests/protect-push.test.sh`, casos: `git push -u origin feat/x 2>&1` (0), `git push origin feat/x > /tmp/log 2>&1` (0) e `git push origin main 2>&1` (2). O terceiro já passa hoje e garante que a correção não libera `main`.
+`scripts/tests/protect-push.test.sh`, casos: `git push -u origin feat/x 2>&1` (0), `git push origin feat/x > /tmp/log 2>&1` (0) e `git push origin main 2>&1` (2). O terceiro já passava antes da correção e garante que ela não libera `main`. Um quarto caso, `git push origin ">" main` (2), também já passava e garante que `">"` entre aspas não é tratado como redirecionamento.
 
 ## Prevenção
 Cobrir no teste a sintaxe de shell em volta do comando. Se voltar (2ª ocorrência), propor regra automática (ver skill registrar-erro, passo 7).
