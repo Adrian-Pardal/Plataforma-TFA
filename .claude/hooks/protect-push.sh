@@ -84,9 +84,27 @@ analisar_push() {   # $1 = pasta onde o git roda; demais = argumentos depois de 
   validar_destinos "$DIR"
 }
 
+# Tira os redirecionamentos (>, >>, <, 2>, 2>&1, &>) e o alvo deles: o shell os consome
+# antes de o git rodar, então não são argumentos do push (ERR-001).
+# Roda ANTES de tirar as aspas: '">"' entre aspas é argumento de verdade e tem que continuar na lista.
+REDIR='^([0-9]*|&)(>>|>|<)'
+tirar_redirecionamentos() {   # lê TOK e deixa nele o resultado, já sem aspas
+  local -a LIMPO=(); local T PULAR=0
+  for T in "${TOK[@]}"; do
+    if [[ $PULAR -eq 1 ]]; then PULAR=0; continue; fi      # alvo do operador anterior
+    if [[ "$T" =~ $REDIR ]]; then
+      [[ "$T" =~ ${REDIR}$ ]] && PULAR=1                    # operador sozinho (">"): o próximo token é o alvo
+      continue                                              # "2>&1" e ">/tmp/log" já vêm com o alvo junto
+    fi
+    T="${T//\"/}"; T="${T//\'/}"                            # tira aspas; não precisamos de parsing perfeito, só dos argumentos
+    LIMPO+=("$T")
+  done
+  TOK=("${LIMPO[@]}")
+}
+
 while IFS= read -r SEG; do
-  SEG="${SEG//\"/}"; SEG="${SEG//\'/}"          # tira aspas; não precisamos de parsing perfeito, só dos argumentos
   read -ra TOK <<<"$SEG"
+  tirar_redirecionamentos
   [[ ${#TOK[@]} -gt 0 ]] || continue
 
   i=0

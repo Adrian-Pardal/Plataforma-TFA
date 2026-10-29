@@ -60,5 +60,13 @@ caso 2 'git push --repo https://exemplo.com/x.git origin feat/x'
 caso 2 'git push --receive-pack=evil origin feat/x'
 caso 2 'git push --exec evil origin feat/x'
 
+echo "▶ protect-push: redirecionamentos do shell não são argumentos do git (ERR-001)"
+caso 0 'git push -u origin feat/x 2>&1'
+caso 0 'git push origin feat/x > /tmp/log 2>&1'
+caso 2 'git push origin main 2>&1'
+# Este caso já passava antes da correção. Ele garante que a correção não trata ">" entre aspas
+# como redirecionamento: isso descartaria o "main" e liberaria o push.
+caso 2 'git push origin ">" main'
+
 if [[ $falhas -gt 0 ]]; then echo "✖ $falhas caso(s) falharam" >&2; exit 1; fi
 echo "✔ todos os casos passaram"

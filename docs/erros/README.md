@@ -9,4 +9,4 @@ existente (`recorrencias`) em vez de criar outro.
 
 | ID | Título | Categoria | Severidade | Status | Data | Recorrências |
 |----|--------|-----------|------------|--------|------|--------------|
-| _nenhum erro registrado ainda_ | | | | | | |
+| ERR-001 | protect-push bloqueia git push com redirecionamento de saída | bug | baixa | corrigido | 2026-10-28 | 1 |
