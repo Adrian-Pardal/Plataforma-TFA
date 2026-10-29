@@ -31,6 +31,11 @@ actions (commit `chore(deps): ...`). Maven e npm estão comentados.
 - **Proteger as branches:** uma vez, depois de a `develop` existir (passo 3).
 - **Atualizar as actions:** o Dependabot abre o PR sozinho; você só revisa e
   pede o merge (veja `merge-de-pr.md`).
+- **Trocar o runner do CI:** o `ci.yml` fixa `ubuntu-24.04`. Quando o GitHub
+  avisar que essa imagem será descontinuada (veja os anúncios em
+  https://github.com/actions/runner-images), troque o label nos dois jobs,
+  confira que `seguranca` e `verificar` continuam verdes e atualize o
+  ambiente local se for o caso.
 
 ## PRÉ-REQUISITOS
 - `actionlint` instalado localmente. Sem ele, o `scripts/verify.sh full` avisa

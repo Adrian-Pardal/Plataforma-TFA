@@ -2,6 +2,7 @@
 # Endurecimento: permissões mínimas por job e actions de terceiros fixadas pelo SHA completo
 # (a versão fica no comentário; o Dependabot atualiza o SHA e o comentário juntos).
 # Os jobs não têm "name:" de propósito: o check aparece como "seguranca" e "verificar" na proteção de branch.
+# Runner fixado em ubuntu-24.04 (igual ao ambiente local); "ubuntu-latest" passa para o Ubuntu 26.04 em nov/2026.
 name: CI
 
 on:
@@ -20,7 +21,7 @@ concurrency:
 
 jobs:
   seguranca:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
       contents: read
@@ -47,7 +48,7 @@ jobs:
 
   verificar:
     needs: seguranca
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     permissions:
       contents: read
@@ -87,7 +88,7 @@ jobs:
   # TODO(codeql): ativar quando houver código Java/JavaScript. Só este job recebe security-events: write.
   # codeql:
   #   needs: seguranca
-  #   runs-on: ubuntu-latest
+  #   runs-on: ubuntu-24.04
   #   timeout-minutes: 30
   #   permissions:
   #     contents: read
