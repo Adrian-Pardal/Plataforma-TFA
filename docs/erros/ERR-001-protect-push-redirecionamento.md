@@ -7,7 +7,7 @@ severidade: baixa
 detectado-em: local
 data: 2026-10-28
 issue: nenhuma
-pr: nenhum
+pr: https://github.com/Adrian-Pardal/Plataforma-TFA/pull/2
 recorrencias: 1
 ---
 
